@@ -26,8 +26,10 @@ except FileNotFoundError:
 def get_name():
     with open(cur_dir + "\\res\\last.txt", mode='r', encoding='utf-8') as f:
         array = f.readlines()
-        str_to_ret = array[0] + array[1]
-        str_to_ret.replace("\n", "")
+        try:
+            str_to_ret = array[0] + array[1]
+            str_to_ret.replace("\n", "")
+        except IndexError: print("Could not read file"); return ""
         return str_to_ret
 
 
@@ -61,5 +63,9 @@ stream = yt.streams.filter(only_audio=True).first()
 stream.download(output_path=dir, filename=title+".mp3")
 
 #https://www.youtube.com/watch?v=a06wve-5PAo&list=RDut8nMaDen9E&index=6&ab_channel=CAKEBOY
+
+# --only_title => Запись названия в файл
+# engne.exe <directory> => downloading to directory
+# engine.exe => saving to /audio
 
 #C:UsersUserPycharmProjectsConCenter>pyinstaller ytDwnload.py --onefile -n=engine.exe
